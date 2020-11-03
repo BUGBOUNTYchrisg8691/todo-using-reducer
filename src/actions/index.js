@@ -9,33 +9,35 @@ export const RESET_FORM = 'RESET_FORM';
 
 function addTodo(todo) {
   return { type: ADD, payload: todo }
-}
+};
 
 function generateID() {
   return { type: GENERATE_ID, payload: uuid() }
-}
+};
 
 function toggleTodo(id) {
   return { type: TOGGLE, payload: id }
-}
+};
 
 function clearCompleted() {
   return { type: CLEAR }
-}
+};
 
 function onChange(e) {
   return { type: ON_CHANGE, payload: e }
-}
+};
 
 function resetForm() {
   return { type: RESET_FORM }
-}
+};
 
-export default {
+const actions = {
   addTodo,
   generateID,
   toggleTodo,
   clearCompleted,
   onChange,
   resetForm
-}
+};
+
+export default actions;

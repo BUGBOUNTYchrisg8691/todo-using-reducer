@@ -15,7 +15,7 @@ export default class TodoList extends Component {
     return (
       <div>
         {this.props.store.todos.map(todo => (
-          <Todo todo={todo} dispatch={this.props.dispatch} />
+          <Todo key={todo.id} todo={todo} dispatch={this.props.dispatch} />
         ))}
         <button onClick={this.handleClearCompleted}>Clear Completed</button>
       </div>
