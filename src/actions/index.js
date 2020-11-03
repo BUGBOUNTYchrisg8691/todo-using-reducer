@@ -1,11 +1,18 @@
-export const ADD = "ADD"
-export const TOGGLE = "TOGGLE"
-export const CLEAR = "CLEAR"
-export const ON_CHANGE = "ON_CHANGE"
-export const RESET_FORM = "RESET_FORM"
+import { v4 as uuid } from 'uuid';
+
+export const ADD = 'ADD';
+export const GENERATE_ID = 'GENERATE_ID';
+export const TOGGLE = 'TOGGLE';
+export const CLEAR = 'CLEAR';
+export const ON_CHANGE = 'ON_CHANGE';
+export const RESET_FORM = 'RESET_FORM';
 
 function addTodo(todo) {
   return { type: ADD, payload: todo }
+}
+
+function generateID() {
+  return { type: GENERATE_ID, payload: uuid() }
 }
 
 function toggleTodo(id) {
@@ -26,6 +33,7 @@ function resetForm() {
 
 export default {
   addTodo,
+  generateID,
   toggleTodo,
   clearCompleted,
   onChange,

@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-// actions
-import actions from "./../actions"
+// Actions
+import actions from './../actions';
 
 export default class TodoForm extends Component {
   handleOnChange = (e) => {
-    this.props.dispatch(actions.onChange(e)) 
+    this.props.dispatch(actions.onChange(e));
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.dispatch(actions.addTodo(this.props.store.form))
-    this.props.dispatch(actions.resetForm())
+    this.props.dispatch(actions.addTodo(this.props.store.form));
+    this.props.dispatch(actions.resetForm());
+    this.props.dispatch(actions.generateID());
   }
   render() {
     return (

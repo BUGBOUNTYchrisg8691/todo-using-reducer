@@ -1,17 +1,20 @@
+import { v4 as uuid } from 'uuid';
+
 import {
   ADD,
+  GENERATE_ID,
   TOGGLE,
   CLEAR,
   ON_CHANGE,
   RESET_FORM
-} from "./../actions"
+} from './../actions';
 
 export const initialState = {
   todos: [],
   form: {
     todo: '',
     completed: false,
-    id: ''
+    id: uuid()
   }
 }
 
@@ -25,10 +28,24 @@ const reducer = (state, action) => {
           action.payload
         ]
       }
+    case GENERATE_ID:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          id: uuid()
+        }
+      }
     case TOGGLE:
-      return state;
+      return {
+        ...state,
+        todos: state.todos.map(todo => todo.id === action.payload ? {...todo, completed: !todo.completed} : todo)
+      }
     case CLEAR:
-      return state;
+      return {
+        ...state,
+        todos: state.todos.filter(todo => !todo.completed)
+      }
     case ON_CHANGE:
       return {
         ...state,
