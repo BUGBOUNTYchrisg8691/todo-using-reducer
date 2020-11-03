@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import Moment from 'moment';
+import moment from 'moment';
 
 import {
   ADD,
@@ -17,7 +17,10 @@ export const initialState = {
     timeCompleted: '',
     completeBy: '',
     completed: false,
-    id: uuid()
+    id: uuid(),
+    coding: false,
+    housework: false,
+    shopping: false
   }
 }
 
@@ -45,7 +48,7 @@ const reducer = (state, action) => {
         // todos: state.todos.map(todo => todo.id === action.payload ? {...todo, completed: !todo.completed, timeCompleted: Moment(Date.now()).format('LLL')} : todo)
         todos: state.todos.map(todo => {
           if (todo.id === action.payload && !todo.completed) {
-            return {...todo, completed: !todo.completed, timeCompleted: Moment(Date.now()).format('LLL')}
+            return {...todo, completed: !todo.completed, timeCompleted: moment(Date.now()).format('LLL')}
           } else if (todo.id === action.payload && todo.completed) {
             return {...todo, completed: !todo.completed, timeCompleted: ''}
           } else {
@@ -59,11 +62,13 @@ const reducer = (state, action) => {
         todos: state.todos.filter(todo => !todo.completed)
       }
     case ON_CHANGE:
+      const {name, value, type, checked} = action.payload.target;
+      const newValue = type === "checkbox" ? checked : value
       return {
         ...state,
         form: {
           ...state.form,
-          [action.payload.target.name]: action.payload.target.value
+          [name]: newValue
         }
       }
     case RESET_FORM:

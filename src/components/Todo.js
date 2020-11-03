@@ -19,6 +19,12 @@ export default class Todo extends Component {
           {this.props.todo.todo}
         </div>
         <label>
+          Tags:
+          {this.props.todo.coding && <div>"Coding"</div>}
+          {this.props.todo.housework && <div>"Housework"</div>}
+          {this.props.todo.shopping && <div>"Shopping"</div>}
+        </label>
+        <label>
           Complete By:
           <div>{moment(this.props.todo.completeBy).format('LLL')}</div>
         </label>
