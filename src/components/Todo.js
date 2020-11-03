@@ -27,7 +27,7 @@ export default class Todo extends Component {
           Time of Completion:
           <div>{this.props.todo.timeCompleted}</div>   
         </label>}
-        {!this.props.todo.completed && new Date().getTime() > new Date(this.props.todo.completeBy).getTime() && <div>Overdue</div>}
+        {!this.props.todo.completed && new Date().getTime() > new Date(this.props.todo.completeBy).getTime() && <div className="overdue">Overdue</div>}
       </div>
     )
   }
