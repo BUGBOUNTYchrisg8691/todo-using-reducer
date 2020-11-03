@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import Moment from 'moment';
 
 import {
   ADD,
@@ -13,6 +14,8 @@ export const initialState = {
   todos: [],
   form: {
     todo: '',
+    timeCompleted: '',
+    completeBy: '',
     completed: false,
     id: uuid()
   }
@@ -39,7 +42,16 @@ const reducer = (state, action) => {
     case TOGGLE:
       return {
         ...state,
-        todos: state.todos.map(todo => todo.id === action.payload ? {...todo, completed: !todo.completed} : todo)
+        // todos: state.todos.map(todo => todo.id === action.payload ? {...todo, completed: !todo.completed, timeCompleted: Moment(Date.now()).format('LLL')} : todo)
+        todos: state.todos.map(todo => {
+          if (todo.id === action.payload && !todo.completed) {
+            return {...todo, completed: !todo.completed, timeCompleted: Moment(Date.now()).format('LLL')}
+          } else if (todo.id === action.payload && todo.completed) {
+            return {...todo, completed: !todo.completed, timeCompleted: ''}
+          } else {
+            return todo
+          }
+        })
       }
     case CLEAR:
       return {

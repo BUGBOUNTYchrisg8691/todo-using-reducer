@@ -18,12 +18,24 @@ export default class TodoForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="todo"
-            value={this.props.store.form.todo}
-            onChange={this.handleOnChange}
-          />
+          <label>
+            Todo:
+            <input
+              type="text"
+              name="todo"
+              value={this.props.store.form.todo}
+              onChange={this.handleOnChange}
+            />
+          </label>
+          <label>
+            Complete By:
+            <input
+              type="date"
+              name="completeBy"
+              value={this.props.store.form.completedBy}
+              onChange={this.handleOnChange}
+            />
+          </label>
           <button>Add Todo</button>
         </form>
       </div>
