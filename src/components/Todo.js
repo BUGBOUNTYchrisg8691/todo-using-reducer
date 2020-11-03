@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Moment from 'moment';
+import moment from 'moment';
 
 // Actions
 import actions from './../actions';
@@ -20,13 +20,14 @@ export default class Todo extends Component {
         </div>
         <label>
           Complete By:
-          <div>{Moment(this.props.todo.completeBy).format('LLL')}</div>
+          <div>{moment(this.props.todo.completeBy).format('LLL')}</div>
         </label>
         {this.props.todo.timeCompleted && 
         <label>
           Time of Completion:
           <div>{this.props.todo.timeCompleted}</div>   
         </label>}
+        {!this.props.todo.completed && new Date().getTime() > new Date(this.props.todo.completeBy).getTime() && <div>Overdue</div>}
       </div>
     )
   }
