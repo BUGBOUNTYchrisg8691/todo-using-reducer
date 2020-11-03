@@ -8,13 +8,13 @@ import './Todo.css';
 
 export default class Todo extends Component {
   handleToggle = () => {
-    this.props.dispatch(actions.toggleTodo(this.props.todo.id))
+    this.props.dispatch(actions.toggleTodo(this.props.todo.id));
   }
 
   render() {
     return (
       <div onClick={this.handleToggle} className={this.props.todo.completed ? 'completed' : ''}>
-        {this.props.todo.todo}   
+        {this.props.todo.todo}
       </div>
     )
   }

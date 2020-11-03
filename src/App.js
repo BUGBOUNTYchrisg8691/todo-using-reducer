@@ -14,7 +14,6 @@ function UseReducerHOC({ children }) {
 }
 
 export default class App extends Component {
-
   render() {
     return (
       <div>

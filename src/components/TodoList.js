@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import actions from './../actions';
 
 // Components
-import Todo from "./Todo"
+import Todo from './Todo';
 
 export default class TodoList extends Component {
   handleClearCompleted = () => {
