@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, useReducer } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Actions
+import {
+  addTodo,
+  toggleTodo,
+  clearCompleted,
+  onChange,
+  resetForm
+} from "./actions"
+
+// Reducer
+import reducer, { initialState } from './reducers'
+
+// Components
+import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
+
+// HOC for using hooks in class
+function HigherOrderComponent({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  return children({ state, dispatch })
 }
 
-export default App;
+export default class App extends Component {
+
+  render() {
+    return (
+      <div>
+        <HigherOrderComponent>
+          {({ state, dispatch }) => (
+            <>
+              <TodoList store={state} dispatch={dispatch} />
+              <TodoForm store={state} dispatch={dispatch} />
+            </>
+          )}
+        </HigherOrderComponent>
+      </div>
+    )
+  }
+}
