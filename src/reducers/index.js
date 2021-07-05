@@ -1,17 +1,26 @@
+import { v4 as uuid } from 'uuid';
+import moment from 'moment';
+
 import {
   ADD,
+  GENERATE_ID,
   TOGGLE,
   CLEAR,
   ON_CHANGE,
   RESET_FORM
-} from "./../actions"
+} from './../actions';
 
 export const initialState = {
   todos: [],
   form: {
     todo: '',
+    timeCompleted: '',
+    completeBy: '',
     completed: false,
-    id: ''
+    id: uuid(),
+    coding: false,
+    housework: false,
+    shopping: false
   }
 }
 
@@ -25,16 +34,41 @@ const reducer = (state, action) => {
           action.payload
         ]
       }
-    case TOGGLE:
-      return state;
-    case CLEAR:
-      return state;
-    case ON_CHANGE:
+    case GENERATE_ID:
       return {
         ...state,
         form: {
           ...state.form,
-          [action.payload.target.name]: action.payload.target.value
+          id: uuid()
+        }
+      }
+    case TOGGLE:
+      return {
+        ...state,
+        // todos: state.todos.map(todo => todo.id === action.payload ? {...todo, completed: !todo.completed, timeCompleted: Moment(Date.now()).format('LLL')} : todo)
+        todos: state.todos.map(todo => {
+          if (todo.id === action.payload && !todo.completed) {
+            return {...todo, completed: !todo.completed, timeCompleted: moment(Date.now()).format('LLL')}
+          } else if (todo.id === action.payload && todo.completed) {
+            return {...todo, completed: !todo.completed, timeCompleted: ''}
+          } else {
+            return todo
+          }
+        })
+      }
+    case CLEAR:
+      return {
+        ...state,
+        todos: state.todos.filter(todo => !todo.completed)
+      }
+    case ON_CHANGE:
+      const {name, value, type, checked} = action.payload.target;
+      const newValue = type === "checkbox" ? checked : value
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          [name]: newValue
         }
       }
     case RESET_FORM:
